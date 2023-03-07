@@ -1,17 +1,15 @@
-# Keyboard-Store using Laravel framework
+# Keyboard Store using Laravel framework
 
 This is a Ecommerce app that the product is about keyboard with admin section. <br>
 
 ## Features
 -   Fully functional E-commerce website front-end and back-end built from scratch.
 -   Using laravel voyager as an admin panel for the site.
--   javascript, jquery, bootstrap and css for the front-end.
 -   Intelligent searching mechanism for products.
 -   Awesome Cart package that uses session.
--   An artisan command to seed the database with all neccessary dummy data, even for voyager tables (php artisan ecommerce:install).
+-   An artisan command to seed the database with all neccessary dummy data, even for voyager tables.
 -   Different user roles and privileges.
 -   Categories, tags and price filtering for easier search for products.
--   And much more features.
 
 ---
 
@@ -39,18 +37,17 @@ Then install package and run package
 composer install
 npm install
 npm run dev
-
 ```
 Then generate key to set APP_KEY value
 ```
 php artisan key:generate
 ```
 
-After that install ecommerce and migrate database
+After that install ecommerce and migrate database and create random data to interact.
 
 ```
-php artisan ecommerce:install
 php artisan migrate --seed
+php artisan ecommerce:install
 ```
 
 Finally run and visit `http://127.0.0.1:8000/`
