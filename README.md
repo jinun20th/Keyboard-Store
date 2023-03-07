@@ -1,5 +1,7 @@
 # Keyboard-Store using Laravel framework
 
+This is a Ecommerce app that the product is about keyboard with admin section. <br>
+
 ## Features
 -   Fully functional E-commerce website front-end and back-end built from scratch.
 -   Using laravel voyager as an admin panel for the site.
@@ -13,19 +15,67 @@
 
 ---
 
-## Installation Guide
+## Clone My Repo <br>
 
-1. clone this repo to your local device
-2. copy `.example.env` to `.env` file: `cp .example.env .env`
-3. create a new database and add the database credentials to your `.env` file
-4. run `composer install`
-5. run `npm install && npm run dev`
-6. run `php artisan key:generate`
-7. run `php artisan ecommerce:install`
-8. run `php artisan migrate --seed`
-9. run `php artisan storage:link`
-10. run `php artisan serve` and then visit `http://127.0.0.1:8000/`
-11. credentials to access admin panel 
-    (email: `admin@admin.com`, password: `password`)
-12. after you login as admin, you can access the admin page from 
-`http://127.0.0.1:8000/admin`
+```
+git clone https://github.com/alutom2002/Keyboard-Store
+```
+
+After Cloning, Go to the directory by typing the command shown below.
+
+```
+cd MediCare
+```
+
+Then create `.env` file on root directory
+
+```
+cp .env.example .env
+```
+
+Then install package and run package
+
+```
+composer install
+npm install
+npm run dev
+
+```
+Then generate key to set APP_KEY value
+```
+php artisan key:generate
+```
+
+After that install ecommerce and migrate database
+
+```
+php artisan ecommerce:install
+php artisan migrate --seed
+```
+
+Finally run and visit `http://127.0.0.1:8000/`
+
+```
+php artisan serve
+```
+
+This app have 2 sections. <br>
+
+```
+1. User Panel
+2. Admin Panel
+```
+
+To access the admin pages: 
+
+```
+email: admin@admin.com
+password: password
+```
+
+After login admin panel you can access the admin page from: 
+
+`http://127.0.0.1/8000/admin`
+
+### Thanks for reading :heart:
+### Have a nice day :heart:
