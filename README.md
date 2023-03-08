@@ -22,7 +22,7 @@ git clone https://github.com/alutom2002/Keyboard-Store
 After Cloning, Go to the directory by typing the command shown below.
 
 ```
-cd MediCare
+cd Keyboard-Store
 ```
 
 Then create `.env` file on root directory
