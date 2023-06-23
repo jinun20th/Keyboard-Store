@@ -9,8 +9,6 @@ use App\Tag;
 
 class ShopController extends Controller
 {
-    
-
     public function index() {
         $pagination = 12;
         if(request()->category) {
@@ -25,6 +23,7 @@ class ShopController extends Controller
             $products = Product::where('featured', true);
             $categoryName = 'Featured';
         }
+        dd($products);
         if(request()->sort == 'low_high') {
             $products = $products->orderBy('price')->paginate($pagination);
         } else if(request()->sort == 'high_low') {
@@ -34,13 +33,13 @@ class ShopController extends Controller
         }
         $categories = Category::all();
         $tags = Tag::all();
-        return view('shop')->with([
-            'products' => $products,
-            'categories'=> $categories,
-            'tags'=> $tags,
-        'categoryName' => $categoryName ?? null,
-            'tagName' => $tagName ?? null
-            ]);
+        // return view('shop')->with([
+        //     'products' => $products,
+        //     'categories'=> $categories,
+        //     'tags'=> $tags,
+        //     'categoryName' => $categoryName ?? null,
+        //     'tagName' => $tagName ?? null
+        //     ]);
     }
 
     public function show($slug) {
@@ -61,6 +60,4 @@ class ShopController extends Controller
         $products = Product::search($query)->paginate(10);
         return view('search')->with(['products' => $products, 'query' => $query]);
     }
-    
-
 }

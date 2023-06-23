@@ -22,7 +22,7 @@ git clone https://github.com/alutom2002/Keyboard-Store
 After Cloning, Go to the directory by typing the command shown below.
 
 ```
-cd MediCare
+cd Keyboard-Store
 ```
 
 Then create `.env` file on root directory
@@ -47,7 +47,6 @@ After that install ecommerce and migrate database and create random data to inte
 
 ```
 php artisan migrate --seed
-php artisan ecommerce:install
 ```
 
 Finally run and visit `http://127.0.0.1:8000/`
@@ -68,6 +67,12 @@ To access the admin pages:
 ```
 email: admin@admin.com
 password: password
+```
+
+To use other function in admin panel: 
+
+```
+php artisan voyager:install
 ```
 
 After login admin panel you can access the admin page from: 

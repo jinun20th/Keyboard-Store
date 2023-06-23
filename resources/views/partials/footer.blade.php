@@ -16,14 +16,12 @@
                     <h3>
                         Contact:
                     </h3>
-                    <p>Email: mohammedomer789@gmail.com</p>
-                    <p>Website: <a href="https://mhmdomer.com">Personal Website</a></p>
-                    <p>Github: <a href="https://github.com/mhmdomer">@mhmdomer</a></p>
-                    <p>Twitter: <a href="https://twitter.com/mhmdomer_">@mhmdomer_</a></p>
-                    <p>LinkedIn: <a href="https://linkedin.com/in/mohammed-omer-ali">Mohammed Omer</a></p>
+                    <p>Email: 20521923@gm.uit.edu.vn</p>
+                    <p>Github: <a href="https://github.com/alutom2002">jinun20th</a></p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/c%C3%B4ng-th%C3%A0nh-phan-05a7b7237/">Cong Thanh Phan</a></p>
                 </div>
             </div>
         </div>
-        <p>copyright &copy; Mohammed Omer Ali - All rights reserved 2019</p>
+        <p>copyright &copy; Jinun20th - All rights reserved 2023</p>
     </div>
 </footer>
