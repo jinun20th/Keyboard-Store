@@ -9,7 +9,7 @@
 <body>
     <div id='app'>
         @include('partials.nav')
-        <div class="" style="margin-top: {{ Request::is('/') ? '-1.3em' : '2em' }}">
+        <div style="margin-top: 8rem">
             @include('partials.session')
             @include('partials.errors')
             @yield('content')

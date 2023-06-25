@@ -155,4 +155,6 @@
 </div>
 <!-- end page content -->
 
+@include('partials.side-cart')
+
 @endsection

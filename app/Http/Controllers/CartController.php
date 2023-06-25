@@ -19,30 +19,34 @@ class CartController extends Controller
         $duplicates = Cart::instance('default')->search(function($cartItem, $rowId) {
             return $cartItem->id == request()->id;
         });
+        
         $duplicatesLater = Cart::instance('saveForLater')->search(function($cartItem, $rowId) {
             return $cartItem->id == request()->id;
         });
+
         if($duplicates->isNotEmpty()) {
             session()->flash('success', 'Item is already in your cart');
-            return redirect()->route('cart.index');
+            return response()->json(['success' => true, 'message' => 'Item is already in the cart']);
+
         } else if($duplicatesLater->isNotEmpty()) {
             Cart::instance('saveForLater')->remove($duplicatesLater->first()->rowId);
         }
+
         Cart::instance('default')->add(request()->id, request()->name, 1, request()->price)->associate('App\Product');
         session()->flash('success', 'product added to the cart');
-        return redirect()->route('cart.index');
+        return response()->json(['success' => true, 'message' => 'Item added to the cart']);
     }
 
     public function update($id) {
-        session()->forget('coupon');
-        // dd(request()->all());
-        if(request()->productQuantity >= request()->quantity) {
-            Cart::instance('default')->update($id, request()->quantity);
-            session()->flash('success', 'quantity updated successfully!');
-            return response()->json(['success' => ''], 200);
-        }
-        session()->flash('error', 'not enough products');
-        return response()->json(['error' => ''], 405);
+        // session()->forget('coupon');
+        dd(request()->all());
+        // if(request()->productQuantity >= request()->quantity) {
+        //     Cart::instance('default')->update($id, request()->quantity);
+        //     session()->flash('success', 'quantity updated successfully!');
+        //     return response()->json(['success' => ''], 200);
+        // }
+        // session()->flash('error', 'not enough products');
+        // return response()->json(['error' => ''], 405);
     }
 
     public function destroy($id, $cart) {

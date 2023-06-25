@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', 'Shop')
 @section('content')
 
@@ -71,5 +70,8 @@
         </div>
     </div>
     <!-- end page content -->
+</div>
+    
+@include('partials.side-cart')
 
 @endsection

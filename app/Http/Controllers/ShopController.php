@@ -23,7 +23,7 @@ class ShopController extends Controller
             $products = Product::where('featured', true);
             $categoryName = 'Featured';
         }
-        dd($products);
+        //dd($products);
         if(request()->sort == 'low_high') {
             $products = $products->orderBy('price')->paginate($pagination);
         } else if(request()->sort == 'high_low') {
@@ -33,13 +33,13 @@ class ShopController extends Controller
         }
         $categories = Category::all();
         $tags = Tag::all();
-        // return view('shop')->with([
-        //     'products' => $products,
-        //     'categories'=> $categories,
-        //     'tags'=> $tags,
-        //     'categoryName' => $categoryName ?? null,
-        //     'tagName' => $tagName ?? null
-        //     ]);
+        return view('shop')->with([
+            'products' => $products,
+            'categories'=> $categories,
+            'tags'=> $tags,
+            'categoryName' => $categoryName ?? null,
+            'tagName' => $tagName ?? null
+            ]);
     }
 
     public function show($slug) {

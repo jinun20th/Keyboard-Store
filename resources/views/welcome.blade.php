@@ -22,7 +22,7 @@
         <h2 style="text-align:center; font-weight: bold">Ecommerce</h2>
         <p style="text-align: center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam accusamus eos quibusdam, esse voluptates voluptatibus id corporis facere neque amet alias molestias itaque ex porro architecto blanditiis distinctio maxime laboriosam.</h2>
     </div>
-    <h2 class="header text-center">Featured Products</h2>
+    <h2 class="title text-center">Featured Products</h2>
     <!-- start products row -->
     <div class="row">
         @foreach ($products as $product)
@@ -52,7 +52,7 @@
         </a>
     </div>
     <hr>
-    <h2 class="header text-center">Hot Sales</h2>
+    <h2 class="title text-center">Hot Sales</h2>
     <!-- start products row -->
     <div class="row">
         @foreach ($hotProducts as $product)
@@ -78,5 +78,7 @@
     <!-- end products row -->
 </div>
 <!-- end page content -->
+
+@include('partials.side-cart')
 
 @endsection

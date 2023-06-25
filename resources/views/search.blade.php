@@ -35,4 +35,6 @@
     {{ $products->links() }}
 </div>
 
+@include('partials.side-cart')
+
 @endsection

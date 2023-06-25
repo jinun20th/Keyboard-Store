@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container">
-
     <div class="row" style="margin-bottom: 3em">
         <div class="col-md-4 product-image">
             <div>
@@ -29,6 +28,7 @@
             @if ($product->quantity > 0)
                 <form action="{{ route('cart.store') }}" method="POST">
                     @csrf()
+                    <input type="hidden" id="cartStoreRoute" data-route="{{ route('cart.store') }}">
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <input type="hidden" name="name" value="{{ $product->name }}">
                     <input type="hidden" name="price" value="{{ $product->price }}">
@@ -39,6 +39,8 @@
     </div>
     <!-- <hr> -->
 </div>
+
+@include('partials.side-cart')
 @include('partials.might-like')
 <!-- end page content -->
 

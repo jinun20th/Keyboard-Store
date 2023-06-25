@@ -29,7 +29,7 @@ Route::get('/guest-checkout', 'CheckoutController@index')->name('checkout.guest'
 
 // coupon
 Route::post('/coupon', 'CouponsController@store')->name('coupon.store');
-Route::delete('/coupon/', 'CouponsController@destroy')->name('coupon.destroy');
+Route::delete('/coupon', 'CouponsController@destroy')->name('coupon.destroy');
 
 // auth routes
 Auth::routes();
