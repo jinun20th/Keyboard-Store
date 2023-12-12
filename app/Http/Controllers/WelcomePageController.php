@@ -9,11 +9,14 @@ class WelcomePageController extends Controller
 {
     public function index()
     {
-        $products = Product::inRandomOrder()->take(6)->get();
-        $hotProducts = Product::inRandomOrder()->take(3)->get();
+        $products = Product::inRandomOrder()->take(4)->get();
+        $switches = Product::where('category_id', 1)->take(4)->get();
+        $keyboards = Product::where('category_id', 2)->take(4)->get();
+        // dd($products, $switches, $keyboard);
         return view('welcome')->with([
             'products'=> $products,
-            'hotProducts' => $hotProducts
+            'switches' => $switches,
+            'keyboards' => $keyboards
         ]);
     }
 }

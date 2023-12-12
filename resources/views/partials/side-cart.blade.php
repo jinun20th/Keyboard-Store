@@ -3,12 +3,12 @@
     <div class="cart-container">
         <div class="cart-head">
             <h2>
-                Cart
+                Giỏ hàng
                 <span class="cart-count">
                     {{ Cart::instance('default')->count() }}
                 </span>
             </h2>
-            <div class="close-cart">
+            <div id="close-cart">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
                     <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                     <path
@@ -34,29 +34,12 @@
                                             {{ $item->model->name }}
                                         </a>
                                     </h3>
-                                    {{-- <ul class="properties-key-value">
-                                        <li data-key="Case"><span class="properties-key-value-key">Case</span><span
-                                                class="properties-key-value-spacer">: </span><span
-                                                class="properties-key-value-value">Black</span></li>
-                                        <li data-key="Plate"><span class="properties-key-value-key">Plate</span><span
-                                                class="properties-key-value-spacer">: </span><span
-                                                class="properties-key-value-value">Polycarbonate</span></li>
-                                        <li data-key="Product type"><span class="properties-key-value-key">Product
-                                                type</span><span class="properties-key-value-spacer">: </span><span
-                                                class="properties-key-value-value">80% assembled keyboard</span></li>
-                                    </ul> --}}
                                 </div>
                                 <form action="{{ route('cart.destroy', [$item->rowId, 'default']) }}" method="POST"
                                     id="delete-item">
                                     @csrf()
                                     @method('DELETE')
                                 </form>
-                                {{-- <form action="{{ route('cart.save-later', $item->rowId) }}" method="POST" id="save-later">
-                                    @csrf()
-                                </form>
-                                <button class="cart-option btn btn-success btn-sm custom-border" onclick="document.getElementById('save-later').submit();">
-                                    Save for later
-                                </button> --}}
                                 <button class="cart-remove" onclick="document.getElementById('delete-item').submit();">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
                                         <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -67,23 +50,13 @@
                             </div>
                             <div class="main-bottom">
                                 <div class="quantity-selector">
-                                    <button aria-label="decrease quantity">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                                            <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                            <path
-                                                d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-                                        </svg>
-                                    </button>
-                                    <input type="text" value="1">
-                                    <button class="down" aria-label="increase quantity">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                                            <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                            <path
-                                                d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                                        </svg>
-                                    </button>
+                                    <button class="btn decrease">-</button>
+                                    <input type="text" class="quantity-input-side" size="1"
+                                        value="{{ $item->qty }}" data-id={{ $item->rowId }} disabled>
+                                    <button class="btn increase">+</button>
                                 </div>
-                                <span class="price">$206.00</span>
+                                <span class="price-none" style="display:none;">{{ $item->price }} VND</span>
+                                <span class="price">{{ format($item->price * $item->qty) }}</span>
                             </div>
                         </div>
                     </div>
@@ -91,13 +64,13 @@
             </div>
             <div class="cart-foot">
                 <div class="footer-row">
-                    <strong class="flex">Subtotal</strong>
-                    <strong class="slidecart-subtotal">$729.00</strong>
+                    <strong class="flex">Tạm tính</strong>
+                    <strong class="slidecart-subtotal">{{format(Cart::priceTotal())}} VND</strong>
                 </div>
-                <a href="/cart">
+                <a href="{{ url('/cart') }}">
                     <button class="button full">Checkout</button>
                 </a>
-                <a class="footer-continue" href="{{ url('/shop') }}">Or continue shopping</a>
+                <a class="footer-continue" href="{{ url('/shop') }}">Tiếp tục mua sắm</a>
             </div>
         @else
             <div class="empty">
@@ -114,9 +87,8 @@
                             fill="#6D6D6D"></path>
                     </g>
                 </svg>
-                <p>Your cart is empty.</p>
+                <p>Giỏ hàng bạn trống.</p>
             </div>
         @endif
     </div>
-</div>
 </div>

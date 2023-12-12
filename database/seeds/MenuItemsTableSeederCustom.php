@@ -51,22 +51,6 @@ class MenuItemsTableSeederCustom extends Seeder
 
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
-            'title'   => 'Blog',
-            'url'     => '#',
-            'route'   => null,
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => null,
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 3,
-            ])->save();
-        }
-
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
             'title'   => 'Cart',
             'url'     => null,
             'route'   => 'cart.index',

@@ -9,7 +9,7 @@
 <body>
     <div id='app'>
         @include('partials.nav')
-        <div style="margin-top: 8rem">
+        <div class="wrapper">
             @include('partials.session')
             @include('partials.errors')
             @yield('content')

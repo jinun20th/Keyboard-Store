@@ -33,7 +33,7 @@ class User extends \TCG\Voyager\Models\User
      *
      * @var array
      */
-    protected $casts = [
+    protected $casts = [    
         'email_verified_at' => 'datetime',
     ];
 

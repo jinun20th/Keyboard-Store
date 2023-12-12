@@ -13,7 +13,6 @@ Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
 Route::get('/shop/search/{query}', 'ShopController@search')->name('shop.search');
 
-
 // Cart
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
@@ -26,6 +25,9 @@ Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/guest-checkout', 'CheckoutController@index')->name('checkout.guest');
+
+// profile
+Route::get('/profile', 'ProfileController@index')->name('profile.index');
 
 // coupon
 Route::post('/coupon', 'CouponsController@store')->name('coupon.store');

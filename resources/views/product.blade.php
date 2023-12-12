@@ -2,9 +2,9 @@
 @section('title', $product->name)
 @section('content')
 
-<div class="container">
+<div class="container pt-5">
     <div class="row" style="margin-bottom: 3em">
-        <div class="col-md-4 product-image">
+        <div class="col-md-6 product-image">
             <div>
                 <img src="{{ productImage($product->image) }}" width="100%" height="100%" id="current-image">
             </div>
@@ -19,12 +19,12 @@
                 @endif
             </div>
         </div>
-        <div class="product-details col-md-5 offset-md-1">
-            <h2 class="lead" style="margin-top:1em">{{ $product->name }}</h2>
-            <span class="badge badge-success" style="font-size: 1em">{{ $stockLevel }}</span>
-            <p class="light-text">{{ $product->details }}</p>
-            <h3 class="lead">$ {{ format($product->price) }}</h3>
-            <p class="light-text">{!! $product->description !!}</p>
+        <div class="product-details col-md-6 ps-5">
+            <h1 class="title small-title mb-3">{{ $product->name }}</h1>
+            <span class="badge-stock">🚀{{ $stockLevel }}</span>
+            <h3 class="title large-title my-3">{{ format($product->price) }} VND</h3>
+            <p class="light-text mb-3">{{ $product->details }}</p> 
+            <p class="light-text mb-3">{!! $product->description !!}</p>
             @if ($product->quantity > 0)
                 <form action="{{ route('cart.store') }}" method="POST">
                     @csrf()
@@ -32,7 +32,10 @@
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <input type="hidden" name="name" value="{{ $product->name }}">
                     <input type="hidden" name="price" value="{{ $product->price }}">
-                    <button type="submit" class="btn custom-border-n">Add to Cart</button>
+                    <label for="quantity">Số lượng</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control" value="1">
+                    <br>
+                    <button type="submit" class="btn add-to-cart-btn">Thêm vào giỏ hàng</button>
                 </form>
             @endif
         </div>

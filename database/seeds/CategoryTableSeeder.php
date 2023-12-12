@@ -15,29 +15,36 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         Category::create([
-            'name' => 'Laptops',
-            'slug' => 'laptops'
+            'name' => 'PCB',
+            'slug' => 'pcb'
         ]);
         Category::create([
-            'name' => 'Desktops',
-            'slug' => 'desktops'
+            'name' => 'Case',
+            'slug' => 'case'
         ]);
         Category::create([
-            'name' => 'Phones',
-            'slug' => 'phones'
+            'name' => 'Plate',
+            'slug' => 'plate'
         ]);
         Category::create([
-            'name' => 'Tablets',
-            'slug' => 'tablets'
+            'name' => 'Kit',
+            'slug' => 'kit'
         ]);
         Category::create([
-            'name' => 'TVs',
-            'slug' => 'tvs'
+            'name' => 'Switches',
+            'slug' => 'switches'
         ]);
         Category::create([
-            'name' => 'Cameras',
-            'slug' => 'cameras'
+            'name' => 'Keycaps',
+            'slug' => 'keycaps'
         ]);
-
+        Category::create([
+            'name' => 'Keyboard',
+            'slug' => 'keyboard'
+        ]);
+        Category::create([
+            'name' => 'Accessories',
+            'slug' => 'accessories'
+        ]);
     }
 }

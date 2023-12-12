@@ -85,8 +85,8 @@
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </div>
                                     <form action="#" method="get" class="search-form" role="search">
-                                        <input type="search" name="search" id="open-search-closed"
-                                            placeholder="Search our store" class="search-form__input">
+                                        <input type="text" name="search" id="open-search-closed"
+                                            placeholder="Tìm kiếm trong cửa hàng" class="search-form__input">
                                     </form>
                                     <div id="search-hide">
                                         <i class="fa-solid fa-xmark"></i>
@@ -96,9 +96,20 @@
                             <div class="utils-btn user-btn">
                                 <i class="fa-solid fa-user"></i>
                                 <ul class="account-menu">
-                                    <li class="account-menu__link"><a href="{{ route('login') }}">Log in</a></li>
-                                    <li class="account-menu__link"><a href="{{ route('register') }}">Create an
-                                            account</a></li>
+                                    @if (Auth::check())
+                                        <li class="account-menu__link"><a href="{{ url('profile') }}">Thông tin cá nhân</a></li>
+                                        <li class="account-menu__link"><a href="{{ url('cart') }}">Giỏ hàng</a></li>
+                                        <li class="account-menu__link"><a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}</a></li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <li class="account-menu__link"><a href="{{ route('login') }}">Đăng nhập</a></li>
+                                        <li class="account-menu__link"><a href="{{ route('register') }}">Tạo tài khoản</a></li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="utils-btn" id="open-cart">
@@ -112,106 +123,52 @@
                     <div class="col-md-12">
                         <ul class="nav site-nav">
                             <li class="site-nav__item">
-                                <a href="{{ url('/') }}" class="site-nav__link">Home</a>
+                                <a href="{{ url('/') }}" class="site-nav__link">Trang chủ</a>
                             </li>
-                            <li class="site-nav__item site-nav__item--has-dropdown">
+                            <li class="site-nav__item">
                                 <a href="{{ url('/shop') }}" class="site-nav__link">
-                                    Shop
-                                    <i class="fa-solid fa-angle-down"></i>
+                                    Sản phẩm
                                 </a>
-                                <div class="site-nav__dropdown small-dropdown">
-                                    <ul class="small-dropdown__container">
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">PCB</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Case</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Plate</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">KIT</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Switches</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Keycaps</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Deskmats</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Wrist
-                                                Rest</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Tape
-                                                Mod</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Keyboard</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">B-Stock</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Accessories</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="site-nav__item site-nav__item--has-dropdown">
                                 <a href="#" class="site-nav__link">
-                                    Keyboard Category
+                                    Các loại quà tặng
                                     <i class="fa-solid fa-angle-down"></i>
                                 </a>
                                 <div class="site-nav__dropdown small-dropdown">
                                     <ul class="small-dropdown__container">
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tiger-Lite</a>
+                                            <a href="{{ url('/shop?category=hoa') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Hoa quà tặng</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#" class="site-nav__link site-nav__dropdown-link">Solar</a>
+                                            <a href="{{ url('/shop?category=thu-bong') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Thú bông</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tofu60</a>
+                                            <a href="{{ url('/shop?category=mo-hinh') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Mô hình</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tofu65</a>
+                                            <a href="{{ url('/shop?category=tranh') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Tranh</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tofu68</a>
+                                            <a href="{{ url('/shop?category=su') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Đồ sứ</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tofu84</a>
+                                            <a href="{{ url('/shop?category=den') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Đèn</a>
                                         </li>
                                         <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Tofu96</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Blade60</a>
-                                        </li>
-                                        <li class="small-dropdown__item">
-                                            <a href="#"
-                                                class="site-nav__link site-nav__dropdown-link">Blade65</a>
+                                            <a href="{{ url('/shop?category=luv') }}"
+                                                class="site-nav__link site-nav__dropdown-link">Bộ quà tặng Luv gift</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="site-nav__item site-nav__item--has-dropdown">
+                            {{-- <li class="site-nav__item site-nav__item--has-dropdown">
                                 <a href="#" class="site-nav__link">
                                     Group buy
                                     <i class="fa-solid fa-angle-down"></i>
@@ -238,8 +195,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="site-nav__item site-nav__item--has-dropdown">
+                            </li> --}}
+                            {{-- <li class="site-nav__item site-nav__item--has-dropdown">
                                 <a href="#" class="site-nav__link">
                                     Ready to use
                                     <i class="fa-solid fa-angle-down"></i>
@@ -272,8 +229,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="site-nav__item site-nav__item--has-dropdown">
+                            </li> --}}
+                            {{-- <li class="site-nav__item site-nav__item--has-dropdown">
                                 <a href="#" class="site-nav__link">
                                     PBT's fans
                                     <i class="fa-solid fa-angle-down"></i>
@@ -317,8 +274,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
