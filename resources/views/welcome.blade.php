@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Welcome')
 @section('content')
-
     <!-- start page content -->
     <!-- Slider -->
     <section id="slider" class="carousel slide" data-ride="carousel">
@@ -70,8 +69,7 @@
     <section class="video">
         <div class="container my-5">
             <div class="video-container">
-                <iframe width="1280" height="720" src="https://www.youtube.com/embed/qpLN3llmQp8"
-                frameborder="0"
+                <iframe width="1280" height="720" src="https://www.youtube.com/embed/qpLN3llmQp8" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
                 {{-- <iframe
@@ -106,7 +104,7 @@
                         </div>
                         <div class="product-block__price my-2">
                             <span>
-                                {{ $product->price }} VND
+                                {{ format($product->price) }}
                             </span>
                         </div>
                     </div>
@@ -140,7 +138,7 @@
                         </div>
                         <div class="product-block__price my-2">
                             <span>
-                                {{ $switch->price }} VND
+                                {{ format($switch->price) }}
                             </span>
                         </div>
                     </div>
@@ -174,7 +172,7 @@
                         </div>
                         <div class="product-block__price my-2">
                             <span>
-                                {{ $keyboard->price }} VND
+                                {{ format($keyboard->price) }}
                             </span>
                         </div>
                     </div>

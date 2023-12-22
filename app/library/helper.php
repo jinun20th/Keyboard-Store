@@ -13,7 +13,7 @@ function productImage($path) {
 }
 
 function format($price) {
-    return number_format($price, 2);
+    return number_format($price, 0, ',', '.') . ' ₫';
 }
 
 function str_limit($string, $limit) {

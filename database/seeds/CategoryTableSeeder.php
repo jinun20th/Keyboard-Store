@@ -15,36 +15,32 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         Category::create([
-            'name' => 'PCB',
-            'slug' => 'pcb'
+            'name' => 'Đèn',
+            'slug' => 'den'
         ]);
         Category::create([
-            'name' => 'Case',
-            'slug' => 'case'
+            'name' => 'Luv',
+            'slug' => 'luv'
         ]);
         Category::create([
-            'name' => 'Plate',
-            'slug' => 'plate'
+            'name' => 'Hoa quà tặng',
+            'slug' => 'hoa'
         ]);
         Category::create([
-            'name' => 'Kit',
-            'slug' => 'kit'
+            'name' => 'Mô hình',
+            'slug' => 'mo-hinh'
         ]);
         Category::create([
-            'name' => 'Switches',
-            'slug' => 'switches'
+            'name' => 'Tranh',
+            'slug' => 'tranh'
         ]);
         Category::create([
-            'name' => 'Keycaps',
-            'slug' => 'keycaps'
+            'name' => 'Đồ sứ',
+            'slug' => 'su'
         ]);
         Category::create([
-            'name' => 'Keyboard',
-            'slug' => 'keyboard'
-        ]);
-        Category::create([
-            'name' => 'Accessories',
-            'slug' => 'accessories'
+            'name' => 'Thú bông',
+            'slug' => 'thu-bong'
         ]);
     }
 }

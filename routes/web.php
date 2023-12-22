@@ -24,11 +24,17 @@ Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
 // checkout
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
-Route::get('/guest-checkout', 'CheckoutController@index')->name('checkout.guest');
+Route::get('/success', 'CheckoutController@success')->name('checkout.success');
+Route::post('/cancel', 'CheckoutController@cancel')->name('checkout.cancel');   
 
 // profile
 Route::get('/profile', 'ProfileController@index')->name('profile.index');
+Route::post('/profile', 'ProfileController@update')->name('profile.update');
+Route::post('/profile/change-password', 'ProfileController@updatePassword')->name('profile.updatePassword');
 
+//order
+Route::get('/order/{order}', 'OrderController@show')->name('order.show'); 
+    
 // coupon
 Route::post('/coupon', 'CouponsController@store')->name('coupon.store');
 Route::delete('/coupon', 'CouponsController@destroy')->name('coupon.destroy');

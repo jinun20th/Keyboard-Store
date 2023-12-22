@@ -1,7 +1,7 @@
 @if (session()->has('success'))
-    {{-- <div class="alert alert-success">
+    <div class="alert alert-success">
         <li>{{ session()->get('success') }}</li>
-    </div> --}}
+    </div>
     <script type="text/javascript">
         const cartElement = document.querySelector('.cart');
         cartElement.classList.add('active');

@@ -21,23 +21,37 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function scopeMightAlsoLike($query) {
+    public function scopeMightAlsoLike($query)
+    {
         return $query->inRandomOrder()->take(3);
     }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo('App\Category');
     }
 
-    public function tags() {
+    public function tags()
+    {
         return $this->belongsToMany('App\Tag');
     }
 
-    public function toSearchableArray() {
+    public function toSearchableArray()
+    {
         $array = $this->toArray();
         $extraFields = [
             'category' => $this->category->name
         ];
         return array_merge($array, $extraFields);
+    }
+
+    public function orderProducts()
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products');
     }
 }

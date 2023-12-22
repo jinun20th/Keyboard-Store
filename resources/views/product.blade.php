@@ -22,7 +22,7 @@
         <div class="product-details col-md-6 ps-5">
             <h1 class="title small-title mb-3">{{ $product->name }}</h1>
             <span class="badge-stock">🚀{{ $stockLevel }}</span>
-            <h3 class="title large-title my-3">{{ format($product->price) }} VND</h3>
+            <h3 class="title large-title my-3">{{ format($product->price) }}</h3>
             <p class="light-text mb-3">{{ $product->details }}</p> 
             <p class="light-text mb-3">{!! $product->description !!}</p>
             @if ($product->quantity > 0)

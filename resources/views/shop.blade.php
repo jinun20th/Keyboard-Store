@@ -12,7 +12,8 @@
                 </h4>
                 <ul class="filter-ul">
                     @foreach ($categories as $category)
-                        <li><a class="text-center {{ $category->name == $categoryName ? 'active-cat' : '' }}"
+                        <li>
+                            <a class="text-center {{ $category->name == $categoryName ? 'active-cat' : '' }}"
                                 href="{{ route('shop.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
                         </li>
                     @endforeach

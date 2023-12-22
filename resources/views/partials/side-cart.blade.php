@@ -65,7 +65,7 @@
             <div class="cart-foot">
                 <div class="footer-row">
                     <strong class="flex">Tạm tính</strong>
-                    <strong class="slidecart-subtotal">{{format(Cart::priceTotal())}} VND</strong>
+                    <strong class="slidecart-subtotal"></strong>
                 </div>
                 <a href="{{ url('/cart') }}">
                     <button class="button full">Checkout</button>

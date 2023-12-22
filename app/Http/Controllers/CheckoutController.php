@@ -40,37 +40,109 @@ class CheckoutController extends Controller
         if ($this->productsAreNoLongerAvailable()) {
             return back()->withError('Sorry, one of the items on your cart is no longer available');
         }
-        $contents = Cart::instance('default')->content()->map(function ($item) {
-            return $item->model->slug . ', ' . $item->qty;
+
+        $paymentMethod = $request->payment_method;
+
+        if ($paymentMethod == 'zalopay') {
+            $this->handleZaloPayPayment($request);
+        } else if ($paymentMethod == 'stripe') {
+            $this->handleStripePayment($request);
+        }
+    }
+
+    public function handleZaloPayPayment($request)
+    {
+        $embeddata = '{}'; // Merchant's data
+        $transID = rand(0, 1000000);
+
+        $items = Cart::instance('default')->content()->map(function ($item) {
+            return [
+                "itemid"       => $item->model->slug,
+                "itemname"     => $item->model->name,
+                "itemprice"    => $item->model->price,
+                "itemquantity" => $item->qty,
+            ];
         })->values()->toJson();
 
-        try {
-            // $stripe = Stripe::make('api_key');
-            // $charge = $stripe->charges()->create([
-            //     'amount' => Cart::instance('default')->total(),
-            //     'currency' => 'USD',
-            //     'source' => $request->stripeToken,
-            //     'description' => 'Order',
-            //     'receipt_email' => $request->email,
-            //     'metadata' => [
-            //         'contents' => $contents,
-            //         'quantity' => Cart::instance('default')->count(),
-            //         'discount' => session()->has('coupon') ? collect(session('coupon')->toJson) : null,
-            //     ],
-            // ]);
+        $order = [
+            "app_id" => env('ZALO_APP_ID'),
+            "app_time" => round(microtime(true) * 1000),
+            "app_trans_id" => date("ymd") . "_" . $transID,
+            "app_user" => "user123",
+            "item" => $items,
+            "embed_data" => $embeddata,
+            "amount" => Cart::instance('default')->total(),
+            "description" => "M4U - Payment for the order #$transID",
+            "bank_code" => "zalopayapp"
+        ];
 
-            $order = $this->insertIntoOrdersTable($request, null);
+        $data = $order["app_id"] . "|" . $order["app_trans_id"] . "|" . $order["app_user"] . "|" . $order["amount"] . "|" . $order["app_time"] . "|" . $order["embed_data"] . "|" . $order["item"];
+        $order["mac"] = hash_hmac("sha256", $data, env('ZALO_KEY1'));
 
-            // SUCCESSFUL
-            $this->decreaseQuantities();
-            // Mail::to('me@me.com')->send(new OrderPlaced($order));
-            Cart::instance('default')->destroy();
-            session()->forget('coupon');
-            return redirect()->route('welcome')->with('success', 'Your order is completed successfully!');
-        } catch (Exception $e) {
-            $this->insertIntoOrdersTable($request, $e->getMessage());
-            return back()->withError('Error ' . $e->getMessage());
+        $context = stream_context_create([
+            "http" => [
+                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method" => "POST",
+                "content" => http_build_query($order)
+            ]
+        ]);
+
+        $resp = file_get_contents(env('ZALO_ENDPOINT_CREATE'), false, $context);
+        $result = json_decode($resp, true);
+
+        $this->insertIntoOrdersTable($request, null, $order['app_trans_id']);
+        // $this->handleOrderCompletion($request);
+
+        if (isset($result['order_url'])) {
+            echo '<script>window.open("' . $result['order_url'] . '", "_blank");</script>';
         }
+    }
+
+    public function handleStripePayment($request)
+    {
+
+        $lineItems = [];
+        $items = Cart::instance('default')->content()->map(function ($item) {
+            return [
+                "itemid"       => $item->model->slug,
+                "itemname"     => $item->model->name,
+                "itemprice"    => $item->model->price,
+                "itemquantity" => $item->qty,
+            ];
+        })->values();
+
+        foreach ($items as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'vnd',
+                    'product_data' => [
+                        'name' => $item['itemname'],
+                    ],
+                    'unit_amount' => $item['itemprice'] * 100,
+                ],
+                'quantity' => $item['itemquantity'],
+            ];
+        }
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('checkout.success'),
+            'cancel_url'  => route('checkout.cancel'),
+        ]);
+        echo '<script>window.open("' . $session->url . '", "_blank");</script>';
+        $this->insertIntoOrdersTable($request, null, $session->id);
+        $this->handleOrderCompletion($request);
+        return redirect($session->url);
+    }
+
+    public function handleOrderCompletion($request)
+    {
+        $this->decreaseQuantities();
+        Cart::instance('default')->destroy();
+        session()->forget('coupon');
+        return redirect()->route('welcome')->with('success', 'Your order is completed successfully!');
     }
 
     private function getNumbers()
@@ -94,7 +166,7 @@ class CheckoutController extends Controller
         ]);
     }
 
-    private function insertIntoOrdersTable($request, $error)
+    private function insertIntoOrdersTable($request, $error, $transID)
     {
         $order = Order::create([
             'user_id' => auth()->user() ? auth()->user()->id : null,
@@ -105,12 +177,15 @@ class CheckoutController extends Controller
             'billing_province' => $request->province,
             'billing_postalcode' => $request->postal_code,
             'billing_phone' => $request->phone,
-            'billing_name_on_card' => $request->name_on_card,
+            'billing_name_on_card' => $request->name,
             'billing_discount' => $this->getNumbers()->get('discount'),
             'billing_discount_code' => $this->getNumbers()->get('code'),
             'billing_subtotal' => $this->getNumbers()->get('newSubtotal'),
             'billing_tax' => $this->getNumbers()->get('newTax'),
             'billing_total' => $this->getNumbers()->get('newTotal'),
+            'payment_gateway' => $request->payment_method,
+            'trans_id' => $transID,
+            'shipped' => 0,
             'error' => $error
         ]);
 
@@ -141,5 +216,15 @@ class CheckoutController extends Controller
             }
         }
         return false;
+    }
+
+    public function success(Request $request)
+    {
+        return view('success');
+    }
+
+    public function cancel()
+    {
+        return "You have cancelled your order.";
     }
 }
