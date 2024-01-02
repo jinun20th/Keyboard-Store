@@ -66,6 +66,11 @@
                                 class="form-check-input" required>
                             <label for="stripe" class="form-check-label">Stripe</label>
                         </div>
+                        <div class="form-check">
+                            <input type="radio" id="stripe" name="payment_method" value="cod"
+                                class="form-check-input" required>
+                            <label for="stripe" class="form-check-label">COD</label>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-success custom-border-success btn-block mt-3">Hoàn
                         thành</button>

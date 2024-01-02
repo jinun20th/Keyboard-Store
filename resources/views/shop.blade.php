@@ -8,7 +8,7 @@
             <!-- start filter section -->
             <div class="col-md-2" style="margin-top:1em">
                 <h4 class="filter-header">
-                    Filter By Category
+                    Lọc theo thể loại
                 </h4>
                 <ul class="filter-ul">
                     @foreach ($categories as $category)
@@ -40,9 +40,9 @@
                     <div class="col-md-6 text-right">
                         <form action="{{ route('shop.index') }}" method="GET">
                             <select name="sort" class="orderby" onchange="this.form.submit()">
-                                <option value="default">Default sorting</option>
-                                <option value="low_high">Sort by Low to High</option>
-                                <option value="high_low">Sort by High to Low</option>
+                                <option value="default">Sắp xếp mặc định</option>
+                                <option value="low_high">Từ giá thấp tới giá cao</option>
+                                <option value="high_low">Từ giá cao tới giá thấp</option>
                             </select>
                         </form>
                         {{-- <span class='font-weight-bolder' style="font-size: 1.2em">Price: </span>

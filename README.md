@@ -1,6 +1,6 @@
-# Keyboard Store using Laravel framework
+# Souvernir Store using Laravel framework
 
-This is a Ecommerce app that the product is about keyboard with admin section. <br>
+This is a Ecommerce app that the product is about Souvernir with admin section. <br>
 
 ## Features
 -   Fully functional E-commerce website front-end and back-end built from scratch.
@@ -16,13 +16,13 @@ This is a Ecommerce app that the product is about keyboard with admin section. <
 ## Clone My Repo <br>
 
 ```
-git clone https://github.com/alutom2002/Keyboard-Store
+git clone https://github.com/alutom2002/Souvernir-Store
 ```
 
 After Cloning, Go to the directory by typing the command shown below.
 
 ```
-cd Keyboard-Store
+cd Souvernir-Store
 ```
 
 Then create `.env` file on root directory

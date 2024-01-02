@@ -6,6 +6,124 @@
 @section('content')
 
 <div class="container">
+    {{-- <div class="container-fluid">
+        <!-- Card stats -->
+        <div class="row g-6 mb-6">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span class="h6 font-semibold text-muted text-sm d-block mb-2">Budget</span>
+                                <span class="h3 font-bold mb-0">$750.90</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                    <i class="bi bi-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-0 text-sm">
+                            <span class="badge badge-pill bg-soft-success text-success me-2">
+                                <i class="bi bi-arrow-up me-1"></i>13%
+                            </span>
+                            <span class="text-nowrap text-xs text-muted">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span class="h6 font-semibold text-muted text-sm d-block mb-2">New projects</span>
+                                <span class="h3 font-bold mb-0">215</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-0 text-sm">
+                            <span class="badge badge-pill bg-soft-success text-success me-2">
+                                <i class="bi bi-arrow-up me-1"></i>30%
+                            </span>
+                            <span class="text-nowrap text-xs text-muted">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total hours</span>
+                                <span class="h3 font-bold mb-0">1.400</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                    <i class="bi bi-clock-history"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-0 text-sm">
+                            <span class="badge badge-pill bg-soft-danger text-danger me-2">
+                                <i class="bi bi-arrow-down me-1"></i>-5%
+                            </span>
+                            <span class="text-nowrap text-xs text-muted">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span class="h6 font-semibold text-muted text-sm d-block mb-2">Work load</span>
+                                <span class="h3 font-bold mb-0">95%</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-warning text-white text-lg rounded-circle">
+                                    <i class="bi bi-minecart-loaded"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-0 text-sm">
+                            <span class="badge badge-pill bg-soft-success text-success me-2">
+                                <i class="bi bi-arrow-up me-1"></i>10%
+                            </span>
+                            <span class="text-nowrap text-xs text-muted">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <h3 class="mt-12 text-center text-2xl">
+        Orders:
+    </h3>
+    <div class="table-responsive">
+        <table id="dataTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($orders as $order)
+                <tr>
+                    <td>{{ $order->billing_email }}</td>
+                    <td>{{ $order->billing_total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <canvas id="products_status"></canvas>
@@ -17,28 +135,6 @@
     <div>
         <canvas id="products_status3"></canvas>
     </div>
-    <h3 class="mt-12 text-center text-2xl">
-        Country Visits:
-    </h3>
-    <div class="table-responsive">
-        <table id="dataTable" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Country</th>
-                    <th>Visits</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($CountryVisit as $visit)
-                <tr>
-                    <td>{{ $visit->country }}</td>
-                    <td>{{ $visit->visits }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        {{ $CountryVisit->links() }}
-    </div>
 </div>
 @endsection
 
@@ -48,15 +144,15 @@
     let myChart = document.getElementById('products_status').getContext('2d');
     let myChart2 = document.getElementById('products_status2').getContext('2d');
     let myChart3 = document.getElementById('products_status3').getContext('2d');
-    let data = {!! json_encode($topCountries, JSON_HEX_TAG) !!};
+    let data = {!! json_encode($revenueData, JSON_HEX_TAG) !!};
 
         let chart3 = new Chart(myChart3, {
             type: 'bar'
             , data: {
-                labels: data.map((item) => item.country)
+                labels: data.map((item) => item.date)
                 , datasets: [{
-                    label: 'Top Countries'
-                    , data: data.map((item) => item.visits)
+                    label: 'Revenua Date'
+                    , data: data.map((item) => item.total)
                     , backgroundColor: [
                         'rgba(255, 99, 132, 0.2)'
                         , 'rgba(54, 162, 235, 0.2)'

@@ -47,6 +47,9 @@ class CheckoutController extends Controller
             $this->handleZaloPayPayment($request);
         } else if ($paymentMethod == 'stripe') {
             $this->handleStripePayment($request);
+        } else {
+            $this->insertIntoOrdersTable($request, null, null);
+            $this->handleOrderCompletion($request);
         }
     }
 
@@ -91,7 +94,7 @@ class CheckoutController extends Controller
         $result = json_decode($resp, true);
 
         $this->insertIntoOrdersTable($request, null, $order['app_trans_id']);
-        // $this->handleOrderCompletion($request);
+        $this->handleOrderCompletion($request);
 
         if (isset($result['order_url'])) {
             echo '<script>window.open("' . $result['order_url'] . '", "_blank");</script>';
